@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vishal Pateshwari — Data Scientist</title>
+  <title>Vishal Pateshwari - Data Scientist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
@@ -20,7 +20,6 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -31,7 +30,6 @@
       overflow-x: hidden;
     }
 
-    /* === NOISE OVERLAY === */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -41,22 +39,21 @@
       opacity: 0.4;
     }
 
-    /* === NAV === */
+    /* ===== NAV ===== */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
       height: var(--nav-h);
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 48px;
       border-bottom: 1px solid var(--border);
-      background: rgba(10,10,15,0.85);
+      background: rgba(10,10,15,0.88);
       backdrop-filter: blur(20px);
       z-index: 100;
     }
 
     .nav-logo {
       font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
+      font-size: 1.1rem; font-weight: 700;
       letter-spacing: 0.02em;
       color: var(--accent);
       text-decoration: none;
@@ -76,10 +73,9 @@
       text-transform: uppercase;
       transition: color 0.2s;
     }
-
     .nav-links a:hover { color: var(--text); }
 
-    /* === DROPDOWN === */
+    /* ===== DROPDOWN ===== */
     .dropdown { position: relative; }
 
     .dropdown-trigger {
@@ -95,18 +91,17 @@
     }
 
     .dropdown-trigger::after {
-      content: '▾';
+      content: 'v';
       font-size: 0.7rem;
       transition: transform 0.2s;
     }
 
-    .dropdown:hover .dropdown-trigger,
-    .dropdown:hover .dropdown-trigger::after { color: var(--accent); }
-    .dropdown:hover .dropdown-trigger::after { transform: rotate(180deg); }
+    .dropdown:hover .dropdown-trigger { color: var(--accent); }
+    .dropdown:hover .dropdown-trigger::after { color: var(--accent); transform: rotate(180deg); }
 
     .dropdown-menu {
       position: absolute; top: calc(100% + 16px); right: 0;
-      min-width: 260px;
+      min-width: 270px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -114,7 +109,7 @@
       opacity: 0; visibility: hidden;
       transform: translateY(-8px);
       transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.65);
     }
 
     .dropdown:hover .dropdown-menu {
@@ -128,41 +123,29 @@
       text-decoration: none;
       transition: background 0.15s;
     }
-
     .dropdown-menu a:hover { background: rgba(255,255,255,0.05); }
 
-    .dropdown-menu .item-icon {
-      font-size: 1.2rem;
-      margin-top: 1px;
-      flex-shrink: 0;
-    }
+    .item-icon { font-size: 1.2rem; margin-top: 1px; flex-shrink: 0; }
+    .item-info { display: flex; flex-direction: column; gap: 2px; }
 
-    .dropdown-menu .item-info { display: flex; flex-direction: column; gap: 2px; }
-
-    .dropdown-menu .item-name {
-      font-size: 0.85rem;
-      font-weight: 500;
+    .item-name {
+      font-size: 0.85rem; font-weight: 500;
       color: var(--text);
-      letter-spacing: 0;
-      text-transform: none;
+      letter-spacing: 0; text-transform: none;
       font-family: 'DM Sans', sans-serif;
     }
 
-    .dropdown-menu .item-desc {
-      font-size: 0.72rem;
-      color: var(--muted);
+    .item-desc {
+      font-size: 0.72rem; color: var(--muted);
       font-family: 'DM Sans', sans-serif;
-      letter-spacing: 0;
-      text-transform: none;
+      letter-spacing: 0; text-transform: none;
     }
 
     .dropdown-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 6px 8px;
+      height: 1px; background: var(--border); margin: 6px 8px;
     }
 
-    /* === HERO === */
+    /* ===== HERO ===== */
     .hero {
       min-height: 100vh;
       display: flex; align-items: center;
@@ -174,8 +157,8 @@
     .hero-bg {
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 60% 60% at 70% 50%, rgba(232,196,122,0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 80% at 20% 80%, rgba(122,204,232,0.04) 0%, transparent 70%);
+        radial-gradient(ellipse 60% 60% at 72% 50%, rgba(232,196,122,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 80% at 10% 80%, rgba(122,204,232,0.04) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -189,19 +172,128 @@
       pointer-events: none;
     }
 
-    .hero-content { position: relative; max-width: 800px; }
+    .hero-inner {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
+    }
 
+    .hero-content { flex: 1; max-width: 620px; }
+
+    /* ===== PHOTO FRAME ===== */
+    .hero-photo-wrap {
+      flex-shrink: 0;
+      position: relative;
+      width: 280px;
+      height: 340px;
+    }
+
+    /* Gold corner top-left */
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      top: -10px; left: -10px;
+      width: 36px; height: 36px;
+      border-top: 2px solid var(--accent);
+      border-left: 2px solid var(--accent);
+      z-index: 3;
+    }
+    /* Gold corner bottom-right */
+    .hero-photo-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -10px; right: -10px;
+      width: 36px; height: 36px;
+      border-bottom: 2px solid var(--accent);
+      border-right: 2px solid var(--accent);
+      z-index: 3;
+    }
+
+    /* Blue accent corners */
+    .corner-bl {
+      position: absolute;
+      bottom: -10px; left: -10px;
+      width: 36px; height: 36px;
+      border-bottom: 2px solid var(--accent2);
+      border-left: 2px solid var(--accent2);
+      z-index: 3;
+    }
+    .corner-tr {
+      position: absolute;
+      top: -10px; right: -10px;
+      width: 36px; height: 36px;
+      border-top: 2px solid var(--accent2);
+      border-right: 2px solid var(--accent2);
+      z-index: 3;
+    }
+
+    .photo-glow {
+      position: absolute;
+      inset: -30px;
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(232,196,122,0.13) 0%, transparent 70%);
+      z-index: 0;
+      filter: blur(24px);
+    }
+
+    .hero-photo-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(232,196,122,0.22);
+      background: var(--card);
+      z-index: 1;
+    }
+
+    .hero-photo-inner img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .photo-placeholder-avatar {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(232,196,122,0.15), rgba(122,204,232,0.1));
+      border: 1px solid rgba(232,196,122,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.4rem;
+    }
+
+    .photo-placeholder-label {
+      font-size: 0.67rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    /* ===== HERO TEXT ===== */
     .hero-eyebrow {
       font-family: 'DM Mono', monospace;
       font-size: 0.75rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       display: flex; align-items: center; gap: 12px;
       animation: fadeUp 0.8s ease both;
     }
-
     .hero-eyebrow::before {
       content: '';
       width: 32px; height: 1px;
@@ -210,54 +302,125 @@
 
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
       font-weight: 900;
       line-height: 1.0;
       letter-spacing: -0.02em;
-      margin-bottom: 28px;
+      margin-bottom: 18px;
       animation: fadeUp 0.8s 0.1s ease both;
     }
+    h1 em { font-style: normal; color: var(--accent); }
 
-    h1 em {
-      font-style: normal;
+    /* Education badge - right under name */
+    .edu-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      padding: 7px 16px 7px 12px;
+      border: 1px solid rgba(232,196,122,0.28);
+      border-radius: 100px;
+      background: rgba(232,196,122,0.06);
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+    .edu-badge-icon { font-size: 0.9rem; }
+    .edu-badge-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.07em;
       color: var(--accent);
-      position: relative;
+    }
+    .edu-badge-sep {
+      width: 1px; height: 13px;
+      background: rgba(232,196,122,0.3);
+    }
+    .edu-badge-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      color: var(--muted);
     }
 
     .hero-desc {
-      font-size: 1.1rem;
-      line-height: 1.8;
+      font-size: 1rem;
+      line-height: 1.85;
       color: var(--muted);
-      max-width: 560px;
-      margin-bottom: 44px;
+      max-width: 520px;
+      margin-bottom: 28px;
       animation: fadeUp 0.8s 0.2s ease both;
     }
 
+    /* Career journey strip */
+    .employer-strip {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s 0.25s ease both;
+    }
+
+    .employer-strip-label {
+      font-size: 0.65rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 16px;
+      white-space: nowrap;
+    }
+
+    .employer-logos {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .employer-logo {
+      padding: 5px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: rgba(255,255,255,0.025);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.02em;
+      transition: all 0.2s;
+    }
+    .employer-logo:hover { border-color: rgba(232,196,122,0.3); color: var(--text); }
+    .employer-logo.current {
+      border-color: rgba(232,196,122,0.45);
+      color: var(--accent);
+      background: rgba(232,196,122,0.07);
+    }
+
+    .employer-arrow { color: var(--muted); font-size: 0.75rem; padding: 0 2px; }
+
     .hero-tags {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      margin-bottom: 44px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 32px;
       animation: fadeUp 0.8s 0.3s ease both;
     }
 
     .tag {
-      padding: 6px 14px;
+      padding: 5px 12px;
       border: 1px solid var(--border);
       border-radius: 100px;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-family: 'DM Mono', monospace;
       color: var(--muted);
       background: rgba(255,255,255,0.02);
     }
 
     .hero-cta {
-      display: flex; gap: 16px; flex-wrap: wrap;
-      animation: fadeUp 0.8s 0.4s ease both;
+      display: flex; gap: 14px; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.35s ease both;
     }
 
     .btn {
-      padding: 14px 28px;
+      padding: 13px 26px;
       border-radius: 8px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-family: 'DM Mono', monospace;
       letter-spacing: 0.05em;
       text-transform: uppercase;
@@ -266,32 +429,25 @@
       transition: all 0.2s;
       display: inline-flex; align-items: center; gap: 8px;
     }
-
     .btn-primary {
       background: var(--accent);
       color: #0a0a0f;
       border: 1px solid var(--accent);
     }
-
-    .btn-primary:hover {
-      background: transparent;
-      color: var(--accent);
-    }
-
+    .btn-primary:hover { background: transparent; color: var(--accent); }
     .btn-secondary {
       background: transparent;
       color: var(--text);
       border: 1px solid var(--border);
     }
-
     .btn-secondary:hover { border-color: var(--muted); }
 
-    /* === STATS === */
+    /* ===== STATS ===== */
     .stats-strip {
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       padding: 40px 48px;
-      display: flex; gap: 0;
+      display: flex;
     }
 
     .stat {
@@ -299,7 +455,6 @@
       padding: 0 32px;
       border-right: 1px solid var(--border);
     }
-
     .stat:first-child { padding-left: 0; }
     .stat:last-child { border-right: none; }
 
@@ -313,19 +468,19 @@
     }
 
     .stat-label {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--muted);
       font-family: 'DM Mono', monospace;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    /* === SECTIONS === */
+    /* ===== SECTIONS ===== */
     section { padding: 80px 48px; }
 
     .section-header {
       display: flex; align-items: baseline; gap: 16px;
-      margin-bottom: 52px;
+      margin-bottom: 48px;
     }
 
     .section-num {
@@ -341,13 +496,9 @@
       font-weight: 700;
     }
 
-    .section-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
+    .section-line { flex: 1; height: 1px; background: var(--border); }
 
-    /* === EXPERIENCE === */
+    /* ===== EXPERIENCE ===== */
     .exp-list { display: flex; flex-direction: column; gap: 2px; }
 
     .exp-item {
@@ -355,10 +506,9 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
-      transition: border-color 0.2s;
       background: var(--card);
+      transition: border-color 0.2s;
     }
-
     .exp-item:hover { border-color: rgba(232,196,122,0.25); }
 
     .exp-sidebar {
@@ -367,11 +517,7 @@
       background: rgba(255,255,255,0.015);
     }
 
-    .exp-company {
-      font-weight: 500;
-      font-size: 0.95rem;
-      margin-bottom: 6px;
-    }
+    .exp-company { font-weight: 500; font-size: 0.95rem; margin-bottom: 6px; }
 
     .exp-date {
       font-family: 'DM Mono', monospace;
@@ -380,16 +526,12 @@
       letter-spacing: 0.06em;
     }
 
-    .exp-location {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 4px;
-    }
+    .exp-location { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
 
     .exp-body { padding: 28px 32px; }
 
     .exp-role {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-family: 'DM Mono', monospace;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -406,18 +548,21 @@
       padding-left: 18px;
       position: relative;
     }
-
     .exp-points li::before {
-      content: '→';
+      content: '>';
       position: absolute; left: 0;
       color: var(--accent);
-      font-size: 0.75rem;
+      font-size: 0.8rem;
+      font-family: 'DM Mono', monospace;
     }
-
     .exp-points strong { color: var(--text); font-weight: 500; }
 
-    /* === SKILLS GRID === */
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    /* ===== SKILLS ===== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
 
     .skill-card {
       padding: 24px;
@@ -426,7 +571,6 @@
       background: var(--card);
       transition: all 0.2s;
     }
-
     .skill-card:hover {
       border-color: rgba(232,196,122,0.2);
       background: rgba(232,196,122,0.02);
@@ -435,7 +579,7 @@
     .skill-card-icon { font-size: 1.5rem; margin-bottom: 12px; }
 
     .skill-card-title {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-family: 'DM Mono', monospace;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -443,9 +587,7 @@
       margin-bottom: 12px;
     }
 
-    .skill-list {
-      display: flex; flex-wrap: wrap; gap: 6px;
-    }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 6px; }
 
     .skill-chip {
       padding: 4px 10px;
@@ -457,7 +599,7 @@
       font-family: 'DM Mono', monospace;
     }
 
-    /* === RESEARCH === */
+    /* ===== RESEARCH ===== */
     .research-list { display: flex; flex-direction: column; gap: 12px; }
 
     .paper-card {
@@ -470,7 +612,6 @@
       color: inherit;
       transition: all 0.2s;
     }
-
     .paper-card:hover { border-color: rgba(122,204,232,0.3); }
 
     .paper-badge {
@@ -487,16 +628,10 @@
       margin-top: 2px;
     }
 
-    .paper-title {
-      font-size: 0.88rem;
-      line-height: 1.5;
-      color: var(--text);
-    }
+    .paper-title { font-size: 0.88rem; line-height: 1.5; color: var(--text); }
 
-    /* === CONTACT === */
-    .contact-row {
-      display: flex; gap: 12px; flex-wrap: wrap;
-    }
+    /* ===== CONTACT ===== */
+    .contact-row { display: flex; gap: 12px; flex-wrap: wrap; }
 
     .contact-link {
       display: flex; align-items: center; gap: 10px;
@@ -510,44 +645,35 @@
       background: var(--card);
       transition: all 0.2s;
     }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
 
-    .contact-link:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* === FOOTER === */
+    /* ===== FOOTER ===== */
     footer {
       border-top: 1px solid var(--border);
       padding: 32px 48px;
       display: flex; justify-content: space-between; align-items: center;
     }
+    footer p { font-size: 0.72rem; color: var(--muted); font-family: 'DM Mono', monospace; }
 
-    footer p {
-      font-size: 0.72rem;
-      color: var(--muted);
-      font-family: 'DM Mono', monospace;
-    }
-
-    /* === ANIMATIONS === */
+    /* ===== ANIMATIONS ===== */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
     .reveal {
-      opacity: 0;
-      transform: translateY(20px);
+      opacity: 0; transform: translateY(20px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 920px) {
+      .hero-inner { flex-direction: column-reverse; align-items: flex-start; gap: 40px; }
+      .hero-photo-wrap { width: 200px; height: 240px; }
     }
 
-    /* === RESPONSIVE === */
-    @media (max-width: 768px) {
+    @media (max-width: 680px) {
       nav { padding: 0 20px; }
       .hero, section { padding-left: 20px; padding-right: 20px; }
       .stats-strip { flex-direction: column; padding: 32px 20px; gap: 24px; }
@@ -556,104 +682,95 @@
       .exp-item { grid-template-columns: 1fr; }
       .exp-sidebar { border-right: none; border-bottom: 1px solid var(--border); }
       .nav-links { display: none; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">VP</a>
-    <ul class="nav-links">
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#research">Research</a></li>
+<!-- ===== NAV ===== -->
+<nav>
+  <a href="#" class="nav-logo">VP</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#research">Research</a></li>
 
-      <!-- DROPDOWN: MY CREATIONS -->
-      <li class="dropdown">
-        <span class="dropdown-trigger">My Creations</span>
-        <div class="dropdown-menu">
+    <!-- MY CREATIONS DROPDOWN -->
+    <li class="dropdown">
+      <span class="dropdown-trigger">My Creations</span>
+      <div class="dropdown-menu">
 
-          <!--
-            ============================================================
-            HOW TO UPDATE THIS DROPDOWN:
-            Replace the href="#" with your actual GitHub repo/project URLs.
-            Format: https://github.com/vishal-pateshwari/YOUR-REPO-NAME
-            Or for live demos: https://vishal-pateshwari.github.io/YOUR-REPO
-            ============================================================
-          -->
+        <!--
+          HOW TO UPDATE THIS LIST:
+          Replace href="https://github.com/vishalpatty" with the direct URL
+          to each specific repo, e.g. https://github.com/vishalpatty/space-optimisation
+        -->
 
-          <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener">
-            <span class="item-icon">🏪</span>
-            <div class="item-info">
-              <span class="item-name">Space Optimisation Engine</span>
-              <span class="item-desc">MILP model for retail merchandise placement</span>
-            </div>
-          </a>
+        <a href="https://github.com/vishalpatty/beneath" target="_blank" rel="noopener">
+          <span class="item-icon">🏪</span>
+          <div class="item-info">
+            <span class="item-name">Placeholder 1</span>
+            <span class="item-desc">Small description</span>
+          </div>
+        </a>
 
-          <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener">
-            <span class="item-icon">🛒</span>
-            <div class="item-info">
-              <span class="item-name">Trolley Demand Predictor</span>
-              <span class="item-desc">XGBoost model for retail trolley forecasting</span>
-            </div>
-          </a>
+        <div class="dropdown-divider"></div>
 
-          <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener">
-            <span class="item-icon">📦</span>
-            <div class="item-info">
-              <span class="item-name">Sales-Based Availability</span>
-              <span class="item-desc">Probabilistic phantom inventory detection</span>
-            </div>
-          </a>
+        <a href="https://github.com/vishalpatty" target="_blank" rel="noopener">
+          <span class="item-icon">💳</span>
+          <div class="item-info">
+            <span class="item-name">Placeholder 2</span>
+            <span class="item-desc">Small description</span>
+          </div>
+        </a>
 
-          <div class="dropdown-divider"></div>
+      </div>
+    </li>
 
-          <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener">
-            <span class="item-icon">💳</span>
-            <div class="item-info">
-              <span class="item-name">Payment Risk Index</span>
-              <span class="item-desc">B2B forex payment risk modelling</span>
-            </div>
-          </a>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-          <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener">
-            <span class="item-icon">🧊</span>
-            <div class="item-info">
-              <span class="item-name">Glacial Lake Predictor</span>
-              <span class="item-desc">Markov Chain model for Himalayan lakes</span>
-            </div>
-          </a>
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
 
-          <div class="dropdown-divider"></div>
+  <div class="hero-inner">
 
-          <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener">
-            <span class="item-icon">📂</span>
-            <div class="item-info">
-              <span class="item-name">All Repositories →</span>
-              <span class="item-desc">View everything on GitHub</span>
-            </div>
-          </a>
-
-        </div>
-      </li>
-
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
+    <!-- LEFT: TEXT -->
     <div class="hero-content">
-      <div class="hero-eyebrow">Data Scientist · IIT Kharagpur</div>
+      <div class="hero-eyebrow">Data Scientist, Bengaluru IN</div>
+
       <h1>Vishal<br /><em>Pateshwari</em></h1>
+
+      <!-- Education badge sits right under the name for branding -->
+      <div class="edu-badge">
+        <span class="edu-badge-icon">🎓</span>
+        <span class="edu-badge-text">IIT Kharagpur</span>
+        <span class="edu-badge-sep"></span>
+        <span class="edu-badge-sub">5yr Integrated M.Sc &nbsp;·&nbsp; CGPA 7.12</span>
+      </div>
+
       <p class="hero-desc">
-        Building ML systems that move the needle — from £50M supply chain engines to
+        Building ML systems that move the needle, from £50M supply chain engines to
         real-time risk models that protect millions. Currently shaping the future of
         retail data science at <strong style="color:var(--text)">Tesco PLC</strong>.
       </p>
+
+      <!-- Employer journey strip -->
+      <div class="employer-strip">
+        <span class="employer-strip-label">Career</span>
+        <div class="employer-logos">
+          <span class="employer-logo">Quantiphi</span>
+          <span class="employer-arrow">&#xbb;</span>
+          <span class="employer-logo">Amex</span>
+          <span class="employer-arrow">&#xbb;</span>
+          <span class="employer-logo current">Tesco PLC</span>
+        </div>
+      </div>
+
       <div class="hero-tags">
         <span class="tag">Machine Learning</span>
         <span class="tag">Operations Research</span>
@@ -663,214 +780,247 @@
         <span class="tag">Computer Vision</span>
         <span class="tag">PySpark</span>
       </div>
+
       <div class="hero-cta">
-        <a href="https://github.com/vishal-pateshwari" target="_blank" class="btn btn-primary">
-          ⇗ GitHub Profile
+        <a href="https://github.com/vishalpatty" target="_blank" class="btn btn-primary">
+          GitHub Profile
         </a>
         <a href="mailto:vishal.pateshwari@gmail.com" class="btn btn-secondary">
           Get In Touch
         </a>
       </div>
     </div>
-  </section>
 
-  <!-- STATS -->
-  <div class="stats-strip reveal">
-    <div class="stat">
-      <div class="stat-num">£50M+</div>
-      <div class="stat-label">Annual savings projected</div>
+    <!-- RIGHT: PHOTO with decorative frame -->
+    <div class="hero-photo-wrap">
+      <div class="photo-glow"></div>
+      <span class="corner-bl"></span>
+      <span class="corner-tr"></span>
+      <div class="hero-photo-inner">
+
+        <!--
+          ============================================================
+          TO ADD YOUR PHOTO - replace the placeholder div below with:
+            <img src="photo.jpg" alt="Vishal Pateshwari" />
+
+          If your photo is in the same GitHub repo:
+            <img src="./photo.jpg" alt="Vishal Pateshwari" />
+
+          Delete the entire .photo-placeholder div once you add the img tag.
+          ============================================================
+        -->
+
+        <div class="photo-placeholder">
+          <div class="photo-placeholder-avatar">&#x1F464;</div>
+          <div class="photo-placeholder-label">
+            <img src="./photo.jpg" alt="Vishal Pateshwari" />
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="stat">
-      <div class="stat-num">£14M</div>
-      <div class="stat-label">Monthly revenue lifted</div>
+
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<div class="stats-strip reveal">
+  <div class="stat">
+    <div class="stat-num">£50M+</div>
+    <div class="stat-label">Annual savings projected</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">£14M</div>
+    <div class="stat-label">Monthly revenue lifted</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">6+</div>
+    <div class="stat-label">Years in production ML</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Research publications</div>
+  </div>
+</div>
+
+<!-- ===== EXPERIENCE ===== -->
+<section id="experience">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-sidebar">
+        <div class="exp-company">Tesco PLC</div>
+        <div class="exp-date">AUG 2022 - PRESENT</div>
+        <div class="exp-location">Bengaluru, IN</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Data Scientist</div>
+        <ul class="exp-points">
+          <li><strong>One-touch Capacity Estimation:</strong> Leading a product-level capacity engine optimising supply chain ordering, delivery, and in-store manpower, projected to save <strong>£50M/year</strong>.</li>
+          <li><strong>Trolley Model:</strong> XGBoost model for trolley demand prediction, saving <strong>£0.75M/year</strong> with a 24% reduction in trolley inventory.</li>
+          <li><strong>Sales Based Availability:</strong> Probabilistic Poisson model detecting phantom inventory and estimating lost sales, now a core accuracy metric company-wide.</li>
+          <li><strong>Space Optimisation:</strong> MILP model for merchandise placement delivering <strong>£14M/month</strong> revenue uplift, with 21% better recommendation acceptance.</li>
+        </ul>
+      </div>
     </div>
-    <div class="stat">
-      <div class="stat-num">5+</div>
-      <div class="stat-label">Years in production ML</div>
+
+    <div class="exp-item reveal">
+      <div class="exp-sidebar">
+        <div class="exp-company">American Express</div>
+        <div class="exp-date">MAR 2020 - JUL 2022</div>
+        <div class="exp-location">Gurgaon, IN</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Data Science Analyst</div>
+        <ul class="exp-points">
+          <li><strong>New Customer Risk Model:</strong> XGBoost model predicting customer defaults with <strong>91.8% accuracy</strong>.</li>
+          <li><strong>Merchant Risk Model:</strong> 12-month credit stress prediction model, saving <strong>$4.9M</strong>.</li>
+          <li><strong>Payment Risk Index:</strong> Logistic regression index for B2B forex payments, reducing risk exposure by <strong>$12.1M</strong>.</li>
+        </ul>
+      </div>
     </div>
-    <div class="stat">
-      <div class="stat-num">3</div>
-      <div class="stat-label">Research publications</div>
+
+    <div class="exp-item reveal">
+      <div class="exp-sidebar">
+        <div class="exp-company">Quantiphi Analytics</div>
+        <div class="exp-date">MAY 2019 - FEB 2020</div>
+        <div class="exp-location">Mumbai, IN</div>
+      </div>
+      <div class="exp-body">
+        <div class="exp-role">Machine Learning Engineer</div>
+        <ul class="exp-points">
+          <li><strong>Insurance Customer Segmentation:</strong> GMM segmentation on multi-dimensional insurance data (health, lifestyle, policy features), paired with Markov Chain powered personalised recommendations for segmented users.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Skills</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🧠</div>
+      <div class="skill-card-title">ML / AI</div>
+      <div class="skill-list">
+        <span class="skill-chip">Statistics</span>
+        <span class="skill-chip">Machine Learning</span>
+        <span class="skill-chip">MILP</span>
+        <span class="skill-chip">Markov Chains</span>
+        <span class="skill-chip">Poisson Models</span>
+        <span class="skill-chip">NLP</span>
+        <span class="skill-chip">Deep Learning</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">💻</div>
+      <div class="skill-card-title">Languages</div>
+      <div class="skill-list">
+        <span class="skill-chip">Python</span>
+        <span class="skill-chip">SQL</span>
+        <span class="skill-chip">R</span>
+        <span class="skill-chip">SAS</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🔧</div>
+      <div class="skill-card-title">Dev Tools</div>
+      <div class="skill-list">
+        <span class="skill-chip">PySpark</span>
+        <span class="skill-chip">Airflow</span>
+        <span class="skill-chip">GitHub</span>
+        <span class="skill-chip">GH Actions</span>
+        <span class="skill-chip">Jira</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🔬</div>
+      <div class="skill-card-title">Domains</div>
+      <div class="skill-list">
+        <span class="skill-chip">Retail</span>
+        <span class="skill-chip">Supply Chain</span>
+        <span class="skill-chip">Credit & Fraud Risk</span>
+        <span class="skill-chip">Insurance</span>
+        <span class="skill-chip">Geospatial</span>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- EXPERIENCE -->
-  <section id="experience">
-    <div class="section-header reveal">
-      <span class="section-num">01</span>
-      <h2 class="section-title">Experience</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="exp-list">
+<!-- ===== RESEARCH ===== -->
+<section id="research">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Research</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="research-list">
+    <a class="paper-card reveal" href="https://www.tandfonline.com/doi/full/10.1080/27669645.2023.2256034?fbclid=IwAR2qrlPQdOmceY0pRCGmkAo_fqqZRT-AmLTV6WOgOFDfx_yDatcjZ6r9G-g" target="_blank" rel="noopener">
+      <span class="paper-badge">All Earth Journal</span>
+      <span class="paper-title">Future prediction of existing glacial lake's size in the Himalaya by Markov model and glacial surface topography</span>
+    </a>
+    <a class="paper-card reveal" href="https://ieeexplore.ieee.org/document/8204077" target="_blank" rel="noopener">
+      <span class="paper-badge">IEEE Xplore</span>
+      <span class="paper-title">Predictive Model for Incident Occurrences in Steel Plant in India</span>
+    </a>
+    <a class="paper-card reveal" href="https://ieeexplore.ieee.org/document/7838894?reload=true" target="_blank" rel="noopener">
+      <span class="paper-badge">IEEE Xplore</span>
+      <span class="paper-title">Study of Optimized SVM for Incident Prediction of a Steel Plant in India</span>
+    </a>
+  </div>
+</section>
 
-      <div class="exp-item reveal">
-        <div class="exp-sidebar">
-          <div class="exp-company">Tesco PLC</div>
-          <div class="exp-date">AUG 2022 – PRESENT</div>
-          <div class="exp-location">Bengaluru, IN</div>
-        </div>
-        <div class="exp-body">
-          <div class="exp-role">Data Scientist</div>
-          <ul class="exp-points">
-            <li><strong>One-touch Capacity Estimation:</strong> Leading a product-level capacity engine optimising supply chain ordering, delivery & manpower — projected to save <strong>£50M/year</strong>.</li>
-            <li><strong>Trolley Model:</strong> XGBoost model for trolley demand prediction — saved <strong>£0.75M/year</strong> with a 24% inventory reduction.</li>
-            <li><strong>Sales Based Availability:</strong> Probabilistic Poisson model detecting phantom inventory, estimating lost sales; now a core accuracy metric.</li>
-            <li><strong>Space Optimisation:</strong> MILP model for merchandise placement — <strong>£14M/month</strong> revenue uplift, 21% better recommendation acceptance.</li>
-          </ul>
-        </div>
-      </div>
+<!-- ===== CONTACT ===== -->
+<section id="contact" style="background: var(--surface); border-top: 1px solid var(--border);">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-line"></div>
+  </div>
+  <p style="color:var(--muted); margin-bottom: 28px; font-size: 0.95rem; max-width: 480px;">
+    Open to interesting problems, collaborations, and good conversations about data.
+  </p>
+  <div class="contact-row reveal">
+    <a href="mailto:vishal.pateshwari@gmail.com" class="contact-link">
+      ✉ vishal.pateshwari@gmail.com
+    </a>
+    <a href="https://linkedin.com/in/vishal-pateshwari" target="_blank" rel="noopener" class="contact-link">
+      ↗ LinkedIn
+    </a>
+    <a href="https://github.com/vishalpatty" target="_blank" rel="noopener" class="contact-link">
+      ↗ GitHub
+    </a>
+    <!-- <a href="tel:+918145889697" class="contact-link">
+      ☎ +91-8145889697
+    </a> -->
+  </div>
+</section>
 
-      <div class="exp-item reveal">
-        <div class="exp-sidebar">
-          <div class="exp-company">American Express</div>
-          <div class="exp-date">MAR 2020 – JUL 2022</div>
-          <div class="exp-location">Gurgaon, IN</div>
-        </div>
-        <div class="exp-body">
-          <div class="exp-role">Data Science Analyst</div>
-          <ul class="exp-points">
-            <li><strong>New Customer Risk Model:</strong> XGBoost model predicting defaults with <strong>91.8% accuracy</strong>.</li>
-            <li><strong>Merchant Risk Model:</strong> 12-month credit stress prediction — saved <strong>$4.9M</strong>.</li>
-            <li><strong>Payment Risk Index:</strong> Logistic regression index for B2B forex payments — reduced risk exposure by <strong>$12.1M</strong>.</li>
-          </ul>
-        </div>
-      </div>
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>© 2025 Vishal Pateshwari - Built with HTML, CSS, No frameworks</p>
+  <p>Gaya, Bihar, IN</p>
+</footer>
 
-      <div class="exp-item reveal">
-        <div class="exp-sidebar">
-          <div class="exp-company">Quantiphi Analytics</div>
-          <div class="exp-date">MAY 2019 – FEB 2020</div>
-          <div class="exp-location">Mumbai, IN</div>
-        </div>
-        <div class="exp-body">
-          <div class="exp-role">Machine Learning Engineer</div>
-          <ul class="exp-points">
-            <li>GMM segmentation on multi-dimensional insurance data with Markov Chain powered personalised recommendation engine.</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-    <div class="section-header reveal">
-      <span class="section-num">02</span>
-      <h2 class="section-title">Skills</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-card reveal">
-        <div class="skill-card-icon">🧠</div>
-        <div class="skill-card-title">ML / AI</div>
-        <div class="skill-list">
-          <span class="skill-chip">XGBoost</span>
-          <span class="skill-chip">MILP</span>
-          <span class="skill-chip">Poisson Models</span>
-          <span class="skill-chip">GMM</span>
-          <span class="skill-chip">Markov Chains</span>
-          <span class="skill-chip">Deep Learning</span>
-          <span class="skill-chip">NLP</span>
-          <span class="skill-chip">Computer Vision</span>
-        </div>
-      </div>
-      <div class="skill-card reveal">
-        <div class="skill-card-icon">💻</div>
-        <div class="skill-card-title">Languages</div>
-        <div class="skill-list">
-          <span class="skill-chip">Python</span>
-          <span class="skill-chip">SQL</span>
-          <span class="skill-chip">R</span>
-          <span class="skill-chip">SAS</span>
-        </div>
-      </div>
-      <div class="skill-card reveal">
-        <div class="skill-card-icon">🔧</div>
-        <div class="skill-card-title">Dev Tools</div>
-        <div class="skill-list">
-          <span class="skill-chip">PySpark</span>
-          <span class="skill-chip">GitHub</span>
-          <span class="skill-chip">GH Actions</span>
-          <span class="skill-chip">Airflow</span>
-          <span class="skill-chip">Jira</span>
-        </div>
-      </div>
-      <div class="skill-card reveal">
-        <div class="skill-card-icon">🎓</div>
-        <div class="skill-card-title">Education</div>
-        <div class="skill-list">
-          <span class="skill-chip">IIT Kharagpur</span>
-          <span class="skill-chip">5yr Integrated M.Sc</span>
-          <span class="skill-chip">CGPA 7.12</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RESEARCH -->
-  <section id="research">
-    <div class="section-header reveal">
-      <span class="section-num">03</span>
-      <h2 class="section-title">Research</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="research-list">
-      <a class="paper-card reveal" href="https://scholar.google.com" target="_blank" rel="noopener">
-        <span class="paper-badge">All Earth Journal</span>
-        <span class="paper-title">Future prediction of existing glacial lake's size in the Himalaya by Markov model and glacial surface topography</span>
-      </a>
-      <a class="paper-card reveal" href="https://ieeexplore.ieee.org" target="_blank" rel="noopener">
-        <span class="paper-badge">IEEE Xplore</span>
-        <span class="paper-title">Predictive Model for Incident Occurrences in Steel Plant in India</span>
-      </a>
-      <a class="paper-card reveal" href="https://ieeexplore.ieee.org" target="_blank" rel="noopener">
-        <span class="paper-badge">IEEE Xplore</span>
-        <span class="paper-title">Study of Optimized SVM for Incident Prediction of a Steel Plant in India</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" style="background: var(--surface); border-top: 1px solid var(--border);">
-    <div class="section-header reveal">
-      <span class="section-num">04</span>
-      <h2 class="section-title">Contact</h2>
-      <div class="section-line"></div>
-    </div>
-    <p style="color:var(--muted); margin-bottom: 28px; font-size: 0.95rem; max-width: 480px;">
-      Open to interesting problems, collaborations, and good conversations about data.
-    </p>
-    <div class="contact-row reveal">
-      <a href="mailto:vishal.pateshwari@gmail.com" class="contact-link">
-        ✉ vishal.pateshwari@gmail.com
-      </a>
-      <a href="https://linkedin.com/in/vishal-pateshwari" target="_blank" rel="noopener" class="contact-link">
-        ↗ LinkedIn
-      </a>
-      <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener" class="contact-link">
-        ↗ GitHub
-      </a>
-      <a href="tel:+918145889697" class="contact-link">
-        ☎ +91-8145889697
-      </a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Vishal Pateshwari — Built with HTML · CSS · No frameworks</p>
-    <p>Bengaluru, IN</p>
-  </footer>
-
-  <!-- SCROLL REVEAL -->
-  <script>
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+<!-- SCROLL REVEAL -->
+<script>
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
