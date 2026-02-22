@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vishal Pateshwari — Data Scientist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --card: #16161f;
+      --border: rgba(255,255,255,0.07);
+      --accent: #e8c47a;
+      --accent2: #7acce8;
+      --text: #e8e8f0;
+      --muted: #7a7a9a;
+      --nav-h: 64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* === NOISE OVERLAY === */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* === NAV === */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* === DROPDOWN === */
+    .dropdown { position: relative; }
+
+    .dropdown-trigger {
+      cursor: pointer;
+      display: flex; align-items: center; gap: 6px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      user-select: none;
+    }
+
+    .dropdown-trigger::after {
+      content: '▾';
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+    }
+
+    .dropdown:hover .dropdown-trigger,
+    .dropdown:hover .dropdown-trigger::after { color: var(--accent); }
+    .dropdown:hover .dropdown-trigger::after { transform: rotate(180deg); }
+
+    .dropdown-menu {
+      position: absolute; top: calc(100% + 16px); right: 0;
+      min-width: 260px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px;
+      opacity: 0; visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1; visibility: visible; transform: translateY(0);
+    }
+
+    .dropdown-menu a {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .dropdown-menu a:hover { background: rgba(255,255,255,0.05); }
+
+    .dropdown-menu .item-icon {
+      font-size: 1.2rem;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .dropdown-menu .item-info { display: flex; flex-direction: column; gap: 2px; }
+
+    .dropdown-menu .item-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0;
+      text-transform: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .dropdown-menu .item-desc {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .dropdown-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 6px 8px;
+    }
+
+    /* === HERO === */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: calc(var(--nav-h) + 60px) 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 70% 50%, rgba(232,196,122,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 80% at 20% 80%, rgba(122,204,232,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; max-width: 800px; }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 12px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+      position: relative;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 44px;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .hero-tags {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-bottom: 44px;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .tag {
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-family: 'DM Mono', monospace;
+      color: var(--muted);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .hero-cta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0f;
+      border: 1px solid var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover { border-color: var(--muted); }
+
+    /* === STATS === */
+    .stats-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 48px;
+      display: flex; gap: 0;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 0 32px;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:first-child { padding-left: 0; }
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* === SECTIONS === */
+    section { padding: 80px 48px; }
+
+    .section-header {
+      display: flex; align-items: baseline; gap: 16px;
+      margin-bottom: 52px;
+    }
+
+    .section-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* === EXPERIENCE === */
+    .exp-list { display: flex; flex-direction: column; gap: 2px; }
+
+    .exp-item {
+      display: grid; grid-template-columns: 200px 1fr;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+      background: var(--card);
+    }
+
+    .exp-item:hover { border-color: rgba(232,196,122,0.25); }
+
+    .exp-sidebar {
+      padding: 28px 24px;
+      border-right: 1px solid var(--border);
+      background: rgba(255,255,255,0.015);
+    }
+
+    .exp-company {
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .exp-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+
+    .exp-location {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .exp-body { padding: 28px 32px; }
+
+    .exp-role {
+      font-size: 0.75rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .exp-points { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .exp-points li {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--muted);
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .exp-points li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
+
+    .exp-points strong { color: var(--text); font-weight: 500; }
+
+    /* === SKILLS GRID === */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+
+    .skill-card {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+      transition: all 0.2s;
+    }
+
+    .skill-card:hover {
+      border-color: rgba(232,196,122,0.2);
+      background: rgba(232,196,122,0.02);
+    }
+
+    .skill-card-icon { font-size: 1.5rem; margin-bottom: 12px; }
+
+    .skill-card-title {
+      font-size: 0.75rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .skill-list {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+
+    .skill-chip {
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* === RESEARCH === */
+    .research-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .paper-card {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--card);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+
+    .paper-card:hover { border-color: rgba(122,204,232,0.3); }
+
+    .paper-badge {
+      padding: 4px 10px;
+      background: rgba(122,204,232,0.08);
+      border: 1px solid rgba(122,204,232,0.2);
+      border-radius: 4px;
+      font-size: 0.65rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.06em;
+      color: var(--accent2);
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .paper-title {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    /* === CONTACT === */
+    .contact-row {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 22px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-family: 'DM Mono', monospace;
+      background: var(--card);
+      transition: all 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* === FOOTER === */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    footer p {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .hero, section { padding-left: 20px; padding-right: 20px; }
+      .stats-strip { flex-direction: column; padding: 32px 20px; gap: 24px; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); padding: 0 0 24px; }
+      .stat:last-child { border-bottom: none; padding-bottom: 0; }
+      .exp-item { grid-template-columns: 1fr; }
+      .exp-sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">VP</a>
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#research">Research</a></li>
+
+      <!-- DROPDOWN: MY CREATIONS -->
+      <li class="dropdown">
+        <span class="dropdown-trigger">My Creations</span>
+        <div class="dropdown-menu">
+
+          <!--
+            ============================================================
+            HOW TO UPDATE THIS DROPDOWN:
+            Replace the href="#" with your actual GitHub repo/project URLs.
+            Format: https://github.com/vishal-pateshwari/YOUR-REPO-NAME
+            Or for live demos: https://vishal-pateshwari.github.io/YOUR-REPO
+            ============================================================
+          -->
+
+          <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener">
+            <span class="item-icon">🏪</span>
+            <div class="item-info">
+              <span class="item-name">Space Optimisation Engine</span>
+              <span class="item-desc">MILP model for retail merchandise placement</span>
+            </div>
+          </a>
+
+          <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener">
+            <span class="item-icon">🛒</span>
+            <div class="item-info">
+              <span class="item-name">Trolley Demand Predictor</span>
+              <span class="item-desc">XGBoost model for retail trolley forecasting</span>
+            </div>
+          </a>
+
+          <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener">
+            <span class="item-icon">📦</span>
+            <div class="item-info">
+              <span class="item-name">Sales-Based Availability</span>
+              <span class="item-desc">Probabilistic phantom inventory detection</span>
+            </div>
+          </a>
+
+          <div class="dropdown-divider"></div>
+
+          <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener">
+            <span class="item-icon">💳</span>
+            <div class="item-info">
+              <span class="item-name">Payment Risk Index</span>
+              <span class="item-desc">B2B forex payment risk modelling</span>
+            </div>
+          </a>
+
+          <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener">
+            <span class="item-icon">🧊</span>
+            <div class="item-info">
+              <span class="item-name">Glacial Lake Predictor</span>
+              <span class="item-desc">Markov Chain model for Himalayan lakes</span>
+            </div>
+          </a>
+
+          <div class="dropdown-divider"></div>
+
+          <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener">
+            <span class="item-icon">📂</span>
+            <div class="item-info">
+              <span class="item-name">All Repositories →</span>
+              <span class="item-desc">View everything on GitHub</span>
+            </div>
+          </a>
+
+        </div>
+      </li>
+
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Data Scientist · IIT Kharagpur</div>
+      <h1>Vishal<br /><em>Pateshwari</em></h1>
+      <p class="hero-desc">
+        Building ML systems that move the needle — from £50M supply chain engines to
+        real-time risk models that protect millions. Currently shaping the future of
+        retail data science at <strong style="color:var(--text)">Tesco PLC</strong>.
+      </p>
+      <div class="hero-tags">
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Operations Research</span>
+        <span class="tag">XGBoost</span>
+        <span class="tag">MILP Optimisation</span>
+        <span class="tag">NLP</span>
+        <span class="tag">Computer Vision</span>
+        <span class="tag">PySpark</span>
+      </div>
+      <div class="hero-cta">
+        <a href="https://github.com/vishal-pateshwari" target="_blank" class="btn btn-primary">
+          ⇗ GitHub Profile
+        </a>
+        <a href="mailto:vishal.pateshwari@gmail.com" class="btn btn-secondary">
+          Get In Touch
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip reveal">
+    <div class="stat">
+      <div class="stat-num">£50M+</div>
+      <div class="stat-label">Annual savings projected</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">£14M</div>
+      <div class="stat-label">Monthly revenue lifted</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">Years in production ML</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Research publications</div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header reveal">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-item reveal">
+        <div class="exp-sidebar">
+          <div class="exp-company">Tesco PLC</div>
+          <div class="exp-date">AUG 2022 – PRESENT</div>
+          <div class="exp-location">Bengaluru, IN</div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">Data Scientist</div>
+          <ul class="exp-points">
+            <li><strong>One-touch Capacity Estimation:</strong> Leading a product-level capacity engine optimising supply chain ordering, delivery & manpower — projected to save <strong>£50M/year</strong>.</li>
+            <li><strong>Trolley Model:</strong> XGBoost model for trolley demand prediction — saved <strong>£0.75M/year</strong> with a 24% inventory reduction.</li>
+            <li><strong>Sales Based Availability:</strong> Probabilistic Poisson model detecting phantom inventory, estimating lost sales; now a core accuracy metric.</li>
+            <li><strong>Space Optimisation:</strong> MILP model for merchandise placement — <strong>£14M/month</strong> revenue uplift, 21% better recommendation acceptance.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-sidebar">
+          <div class="exp-company">American Express</div>
+          <div class="exp-date">MAR 2020 – JUL 2022</div>
+          <div class="exp-location">Gurgaon, IN</div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">Data Science Analyst</div>
+          <ul class="exp-points">
+            <li><strong>New Customer Risk Model:</strong> XGBoost model predicting defaults with <strong>91.8% accuracy</strong>.</li>
+            <li><strong>Merchant Risk Model:</strong> 12-month credit stress prediction — saved <strong>$4.9M</strong>.</li>
+            <li><strong>Payment Risk Index:</strong> Logistic regression index for B2B forex payments — reduced risk exposure by <strong>$12.1M</strong>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-sidebar">
+          <div class="exp-company">Quantiphi Analytics</div>
+          <div class="exp-date">MAY 2019 – FEB 2020</div>
+          <div class="exp-location">Mumbai, IN</div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-role">Machine Learning Engineer</div>
+          <ul class="exp-points">
+            <li>GMM segmentation on multi-dimensional insurance data with Markov Chain powered personalised recommendation engine.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">🧠</div>
+        <div class="skill-card-title">ML / AI</div>
+        <div class="skill-list">
+          <span class="skill-chip">XGBoost</span>
+          <span class="skill-chip">MILP</span>
+          <span class="skill-chip">Poisson Models</span>
+          <span class="skill-chip">GMM</span>
+          <span class="skill-chip">Markov Chains</span>
+          <span class="skill-chip">Deep Learning</span>
+          <span class="skill-chip">NLP</span>
+          <span class="skill-chip">Computer Vision</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">💻</div>
+        <div class="skill-card-title">Languages</div>
+        <div class="skill-list">
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">SQL</span>
+          <span class="skill-chip">R</span>
+          <span class="skill-chip">SAS</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">🔧</div>
+        <div class="skill-card-title">Dev Tools</div>
+        <div class="skill-list">
+          <span class="skill-chip">PySpark</span>
+          <span class="skill-chip">GitHub</span>
+          <span class="skill-chip">GH Actions</span>
+          <span class="skill-chip">Airflow</span>
+          <span class="skill-chip">Jira</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">🎓</div>
+        <div class="skill-card-title">Education</div>
+        <div class="skill-list">
+          <span class="skill-chip">IIT Kharagpur</span>
+          <span class="skill-chip">5yr Integrated M.Sc</span>
+          <span class="skill-chip">CGPA 7.12</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research">
+    <div class="section-header reveal">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Research</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="research-list">
+      <a class="paper-card reveal" href="https://scholar.google.com" target="_blank" rel="noopener">
+        <span class="paper-badge">All Earth Journal</span>
+        <span class="paper-title">Future prediction of existing glacial lake's size in the Himalaya by Markov model and glacial surface topography</span>
+      </a>
+      <a class="paper-card reveal" href="https://ieeexplore.ieee.org" target="_blank" rel="noopener">
+        <span class="paper-badge">IEEE Xplore</span>
+        <span class="paper-title">Predictive Model for Incident Occurrences in Steel Plant in India</span>
+      </a>
+      <a class="paper-card reveal" href="https://ieeexplore.ieee.org" target="_blank" rel="noopener">
+        <span class="paper-badge">IEEE Xplore</span>
+        <span class="paper-title">Study of Optimized SVM for Incident Prediction of a Steel Plant in India</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="background: var(--surface); border-top: 1px solid var(--border);">
+    <div class="section-header reveal">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Contact</h2>
+      <div class="section-line"></div>
+    </div>
+    <p style="color:var(--muted); margin-bottom: 28px; font-size: 0.95rem; max-width: 480px;">
+      Open to interesting problems, collaborations, and good conversations about data.
+    </p>
+    <div class="contact-row reveal">
+      <a href="mailto:vishal.pateshwari@gmail.com" class="contact-link">
+        ✉ vishal.pateshwari@gmail.com
+      </a>
+      <a href="https://linkedin.com/in/vishal-pateshwari" target="_blank" rel="noopener" class="contact-link">
+        ↗ LinkedIn
+      </a>
+      <a href="https://github.com/vishal-pateshwari" target="_blank" rel="noopener" class="contact-link">
+        ↗ GitHub
+      </a>
+      <a href="tel:+918145889697" class="contact-link">
+        ☎ +91-8145889697
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Vishal Pateshwari — Built with HTML · CSS · No frameworks</p>
+    <p>Bengaluru, IN</p>
+  </footer>
+
+  <!-- SCROLL REVEAL -->
+  <script>
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
